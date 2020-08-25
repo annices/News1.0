@@ -1,0 +1,75 @@
+@model IEnumerable<MvcNews.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Controller = "News";
+}
+
+<h2><i class="fa fa-list-alt"></i> Edit news</h2>
+
+<p><span class="successmsg">@ViewBag.Success</span></p>
+<p><span class="errormsg">@ViewBag.Error</span></p>
+
+@using (Html.BeginForm("Index", "News"))
+{
+    <div class="row">
+        <div class="col-searchfield">
+            <input type="text" name="filter" size="30" />
+        </div>
+        <div class="col-filter-btn">
+            <input type="submit" value="Search" class="btn-a" />
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" name="check" value="3" class="btn-a">All</button>
+            <button type="submit" name="check" value="1" class="btn-a">Published</button>
+            <button type="submit" name="check" value="2" class="btn-a">Draft</button>
+        </div>
+    </div>
+}
+<p />
+
+<div id="container">
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 200px"><b>Title:</b></th>
+            <th><b>Last updated:</b></td>
+            <th style="width: 600px"><b>Entry:</b></th>
+            <th style="width: 400px"><b>Status:</b></td>
+        </tr>
+    </thead>
+@foreach(var item in Model)
+{
+    var entry = "";
+    @if(item.Entry.Length > 200)
+    {
+        entry = @item.Entry.Remove(199)+"...";
+    }
+    else
+    {
+        entry = @item.Entry;
+    }
+
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+        <td>@Html.DisplayFor(modelItem => item.EntryDate)</td>
+        <td>@Html.Raw(entry)</td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Status)
+        <span style="float: right">
+        <i class="fa fa-pencil-square-o"></i>&nbsp;@Html.ActionLink("Edit", "Edit", "News", new { id = item.EntryID }, null)
+        <text> | </text>
+        <i class="fa fa-trash-o"></i>&nbsp;@Html.ActionLink("Delete", "Delete", "News", new { id = item.EntryID }, new { onclick = "return confirm('Are you sure you want to delete this?')" })
+        </span>
+        </td>
+    </tr>
+}
+</table>
+
+<p><em>@ViewBag.Msg</em></p>
+
+</div>
+
+<partial name="../Shared/_Pagination.cshtml" />

@@ -1,0 +1,66 @@
+@model MvcNews.Models.Admin
+
+<h2><i  class="fa fa-user"></i> Edit admin</h2>
+
+<div id="container">
+
+@if(ViewBag.Success == true)
+{
+    <span class="successmsg">@ViewBag.msg</span>
+}
+else
+{
+    <span class="errormsg">@ViewBag.Msg</span>
+}
+
+<div id="form">
+@using (Html.BeginForm("Index", "Admin"))
+{
+    // Protect the application against cross-site forgery:
+    @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(model => model.Email)
+
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Firstname, "Firstname: *", htmlAttributes: new { })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Firstname, htmlAttributes: new { required = "required", @maxlength = "30" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Lastname, "Lastname:", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "" })
+            @Html.TextBoxFor(model=>model.Lastname, htmlAttributes: new { @maxlength = "30" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Email, "Email: *", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Email, "", htmlAttributes: new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Email, htmlAttributes: new { @required = "required", @type = "email", @maxlength = "100" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Password, "Password:", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Password, "", htmlAttributes: new { @class = "" })
+            @Html.TextBoxFor(model=>model.Password, htmlAttributes: new {})
+            <em>(If you leave the password field empty, you will keep your current password.)</em>
+        </div>
+        <div class="row floatright">
+            <input type="submit" value="Save" class="btn-a" />
+        </div>
+    </div>
+}
+</div>
+</div>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<!--
+This news script was fetched from https://annice.se and is created by Annice Strömberg, 2019.
+-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MvcNews 1.0</title>
+
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+</head>
+<body>
+    <header>
+        <div class="topnav" id="myTopnav">
+            @if(ViewBag.Email != null)
+            {              
+                <a class='@if(Context.Request.Path == "/"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="Home" asp-action="Index">MVC News 1.0</a>
+                <a class='@if(Context.Request.Path == "/News/Create"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="News" asp-action="Create">Create news</a>
+                <a class='@if(Context.Request.Path == "/News"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="News" asp-action="Index">Edit news</a>
+                <a class='@if(Context.Request.Path == "/Admin"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="Admin" asp-action="Index">Edit admin</a>
+                <a href="javascript:void(0);" class="icon" onclick="dropDown()">
+                <i class="fa fa-bars"></i>
+                </a>
+            }
+            else
+            {
+                <a class='@if(Context.Request.Path == "/"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="Home" asp-action="Index">MVC News 1.0</a>
+                <a class='@if(Context.Request.Path == "/Admin/Login"){<text>active</text>}else{<text>nav</text>}' asp-area="" asp-controller="Admin" asp-action="Login">Login</a>
+                <a href="javascript:void(0);" class="icon" onclick="dropDown()">
+                <i class="fa fa-bars" style="text-align: middle !important"></i>
+                </a>
+            }
+        </div>
+    </header>
+    @if(ViewBag.Email != null)
+    {
+        <h3><i class="fa fa-sign-out"></i> <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Logout">Logout</a></h3><p />
+    }
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer id="footer">
+        <div>
+            MvcNews 1.0 - An ASP.NET Core application from <a href="https://annice.se" target="_blank">Annice.se</a>.
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

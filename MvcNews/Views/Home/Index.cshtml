@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MvcNews.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Controller = "Home";
+}
+
+<h2><i class="fa fa-list-alt"></i> Latest published news</h2>
+
+<div id="container" style="padding-top: 40px">
+
+<em>@ViewBag.Msg</em><p />
+
+@if(Model != null)
+{
+    @foreach(var item in Model)
+    {
+        // For prettier output, cut strings and refer to detail page to read full entries:
+        var updated = @item.EntryDate.Substring(0,16);
+        var titleWithDate = @item.Title + " (" + updated + ")";
+
+        var entry = "";
+        
+        if(item.Entry.Length > 1000)
+        {
+            entry = @item.Entry.Remove(999) +" (...)";
+        }
+        else
+        {
+            entry = item.Entry;
+        }
+
+        <b>@Html.ActionLink(titleWithDate, "Detail", "Home", new { id = item.EntryID }, new { title = "Read more..."})</b>
+
+        <p style="margin-bottom: 30px"><span class="line-breaks">@Html.Raw(entry)</span></p>
+
+        if(!item.Equals(Model.Last()))
+        {
+            <text><hr /></text>
+        }
+    }
+
+}
+
+</div>
+
+<partial name="../Shared/_Pagination.cshtml" />
+
+

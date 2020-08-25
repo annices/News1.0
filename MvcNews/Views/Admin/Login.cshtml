@@ -1,0 +1,36 @@
+@model MvcNews.Models.Admin
+
+<h2><i  class="fa fa-sign-in"></i> Login</h2>
+
+<div id="container">
+
+<span class="errormsg">@ViewBag.Msg</span>
+
+<div id="form">
+@using (Html.BeginForm("Login", "Admin"))
+{
+    // Protect the application against cross-site forgery:
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Email, "User email:", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.TextBoxFor(model=>model.Email, htmlAttributes: new {})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Password, "Password:", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.TextBoxFor(model=>model.Password, htmlAttributes: new { @type = "password"})
+        </div>
+        <div class="row floatright">
+            <input type="submit" value="Login" class="btn-a" />
+        </div>
+    </div>
+}
+</div>
+</div>

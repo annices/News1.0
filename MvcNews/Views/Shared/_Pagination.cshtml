@@ -1,0 +1,30 @@
+﻿
+@if (!((ViewBag.page == 0) && (ViewBag.page == ViewBag.maxpage)))
+{
+
+    <div style="text-align: center">
+        @if (ViewBag.page == 0)
+        {
+            <span class="btn-a">&laquo;</span>
+            <span class="btn-a">Previous</span>
+        }
+        else
+        {
+            @Html.ActionLink("«", (string)ViewBag.Title, (string)ViewBag.Controller, new { page = 0 }, new { @class="btn-a", title = "Go to first page."})
+            <text>&nbsp;</text>
+            @Html.ActionLink("Previous", (string)ViewBag.Title, (string)ViewBag.Controller, new { page = @ViewBag.page-1 }, new { @class="btn-a", title = "Go to previous page."})
+        }
+        @if (ViewBag.page == ViewBag.maxpage)
+        {
+            <span class="btn-a">Next</span>
+            <span class="btn-a">&raquo;</span>
+        }
+        else
+        {
+            @Html.ActionLink("Next", (string)ViewBag.Title, (string)ViewBag.Controller, new { page = @ViewBag.page+1 }, new { @class="btn-a", title = "Go to next page." } )
+            <text>&nbsp;</text>
+            @Html.ActionLink("»", (string)ViewBag.Title, (string)ViewBag.Controller, new { page = @ViewBag.maxpage }, new { @class="btn-a", title = "Go to last page."})
+        }
+    </div>
+
+}

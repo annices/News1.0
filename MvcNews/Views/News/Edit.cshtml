@@ -1,0 +1,67 @@
+@model MvcNews.Models.News
+
+<h2><i class="fa fa-pencil-square-o"></i> Edit news <i class="fa fa-arrow-right"></i> Edit entry</h2>
+
+<div id="container">
+
+<p><span class="successmsg">@ViewBag.Success</span></p>
+<p><span class="errormsg">@ViewBag.Error</span></p>
+
+
+<div id="form">
+@using (Html.BeginForm("Edit", "News"))
+{
+    // Protect the application against cross-site forgery:
+    @Html.AntiForgeryToken()
+    // Attach hidden but required properties with the post request:
+    @Html.HiddenFor(model => model.EntryID)
+    @Html.HiddenFor(model => model.Email)
+
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Status, "Status: *", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "errormsg" })
+            @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.StatusList, new { @class = "" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Title, "Title: *", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Title, htmlAttributes: new { required = "required", @maxlength = "100" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.EntryDate, "Entry date: *", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.EntryDate, Model.EntryDate, new { @type="date" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Entry, "Entry: *", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Entry, "", new { @class = "errormsg" })
+            @Html.TextAreaFor(model=>model.Entry, htmlAttributes: new { @id = "EntryID", @required = "required", rows="10", @maxlength = "4000", @class = "" })
+            <em>(HTML and CSS code is allowed to style your entry content, e.g. &lt;b&gt;bold text&lt;/b&gt; etc.)</em>
+        </div>
+    </div>
+    <div class="row floatright">
+    <input type="submit" value="Save" class="btn-a" />
+    </div>
+}
+</div>
+
+<p>
+    <i class="fa fa-arrow-left"></i> <b>@Html.ActionLink("Back to entry list", "Index", "News")</b>
+</p>
+
+</div>

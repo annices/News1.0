@@ -1,0 +1,20 @@
+@model MvcNews.Models.News
+
+@{
+    ViewData["Title"] = "Detail page";
+}
+
+<h2><i class="fa fa-list-alt"></i> Latest published news <i class="fa fa-arrow-right"></i> @Html.DisplayFor(model => model.Title)</h2>
+
+<div id="container" style="padding-top: 40px">
+    <b>Last updated:</b> @Html.DisplayFor(model => model.EntryDate)</b><br />
+    <b>Created by:</b> <a href="mailto:@Model.Email" title="@Model.Email">@ViewBag.UserFirstname</a></b>
+
+    <p style="margin-bottom: 30px">
+        <span class="line-breaks">@Html.Raw(@Model.Entry.ToString())</span>
+    </p>
+</div>
+
+<p>
+    <i class="fa fa-arrow-left"></i> <b>@Html.ActionLink("Back to start page", "Index", "Home")</b>
+</p>

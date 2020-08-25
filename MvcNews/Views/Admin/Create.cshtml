@@ -1,0 +1,61 @@
+@model MvcNews.Models.Admin
+
+<h2><i  class="fa fa-sign-in"></i> Create admin</h2>
+
+<div id="container">
+
+<span class="errormsg">@ViewBag.Msg</span>
+
+<fieldset>
+    <legend><em>NOTE!</em></legend>
+    <em>For security reasons, this file will be deleted after you have created the user. However, you will be able to edit the admin details once you have logged in with the created user credentials below.</em>
+</fieldset>
+
+<div id="form">
+@using (Html.BeginForm("Create", "Admin"))
+{
+    // Protect the application against cross-site forgery:
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Firstname, "Firstname: *", htmlAttributes: new {})
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Firstname, htmlAttributes: new { maxlength = "30", required = "required" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Lastname, "Lastname:", htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Lastname, htmlAttributes: new { maxlength = "30" })
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Email, "Email: *", htmlAttributes: new {})
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Email, htmlAttributes: new { maxlength = "100", required = "required", @type = "email"})
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-25">
+            @Html.LabelFor(model => model.Password, "Password: *", htmlAttributes: new {})
+        </div>
+        <div class="col-75">
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errormsg" })
+            @Html.TextBoxFor(model=>model.Password, htmlAttributes: new { required = "required" })
+        </div>
+        <div class="row floatright">
+            <input type="submit" value="Create" class="btn-a" />
+        </div>
+    </div>
+}
+</div>
+</div>
